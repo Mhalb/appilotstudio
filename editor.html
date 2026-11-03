@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case-Editor · Appilot</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/lib/editor.css?v=4">
+</head>
+<body>
+<header class="top">
+  <span class="brand"><span class="dot">✦</span> Appilot <b>Case-Editor</b></span>
+  <nav class="tabs">
+    <button type="button" class="tab active" data-view="cases" id="tabCases">Cases</button>
+    <button type="button" class="tab" data-view="kb" id="tabKb">Wissensdatenbank</button>
+    <button type="button" class="tab" data-view="updates" id="tabUpdates">Updates <span class="count" id="updCount" hidden></span></button>
+    <a class="tab" href="/lern-editor.html">Lernstrecken</a>
+  </nav>
+  <span class="grow"></span>
+  <label class="role">Rolle
+    <select id="role">
+      <option value="autor">Autorin · Maria Sommer</option>
+      <option value="pruefer">Freigeber · Jens Albrecht</option>
+    </select>
+  </label>
+  <a class="lnk" href="#" target="zielanwendung" id="toApp" hidden>Zielanwendung öffnen ↗</a>
+  <button type="button" class="lnk" id="openProject" title="Zielanwendung und Zielgruppe einstellen">Projekt</button>
+</header>
+
+<!-- Projekteinstellungen -->
+<dialog class="proj-dlg" id="projDlg" aria-labelledby="projTitle">
+  <form method="dialog" id="projForm">
+    <h2 id="projTitle">Projekt</h2>
+    <p class="hint">Die Zielanwendung ist die Web-Anwendung, zu der Cases, Videos und Lernstrecken entstehen. Aufnahme, Probelauf und Update-Check brauchen dort Appilot (siehe README).</p>
+    <label class="lbl" for="projName">Name der Zielanwendung</label>
+    <input id="projName" maxlength="80" placeholder="z. B. Kundenportal">
+    <label class="lbl" for="projUrl">Adresse der Zielanwendung</label>
+    <input id="projUrl" type="url" maxlength="400" placeholder="https://…">
+    <label class="lbl" for="projAudience">Zielgruppe der Lernstrecken</label>
+    <input id="projAudience" maxlength="300">
+    <p class="note warn" id="projError" hidden></p>
+    <div class="btns"><button type="submit" class="btn" value="save">Speichern</button><button type="button" class="btn ghost" id="projCancel">Abbrechen</button></div>
+  </form>
+</dialog>
+
+<div class="upd-banner" id="updBanner" hidden></div>
+
+<main>
+  <!-- Cases -->
+  <section id="viewCases" class="view">
+    <aside class="list">
+      <div class="list-head"><h2>Cases</h2><button type="button" class="btn small" id="newCase">+ Neuer Case</button></div>
+      <ul id="caseList"></ul>
+    </aside>
+
+    <section class="detail" id="detail">
+      <div class="empty" id="emptyDetail">Wählen Sie links einen Case oder legen Sie einen neuen an.</div>
+      <div id="caseForm" hidden>
+        <div class="row-head">
+          <input id="cTitle" class="title-input" placeholder="Titel des Case" aria-label="Titel">
+          <span class="badge" id="cStatus"></span>
+        </div>
+        <div class="meta" id="cMeta"></div>
+        <div class="flow" id="cFlow"></div>
+
+        <label class="lbl" for="cDesc">Beschreibung des Ablaufs in eigenen Worten</label>
+        <textarea id="cDesc" rows="4" placeholder="z. B.: Einen neuen Kunden mit Ansprechpartner anlegen, Zahlungsziel 30 Tage, Vertrag als PDF anhängen …"></textarea>
+
+        <div class="create">
+          <div class="create-card">
+            <b>1 · Beschreiben</b>
+            <span>Appilot liest die Anwendung und erstellt aus Ihrer Beschreibung die Schritte.</span>
+            <button type="button" class="btn" id="btnDraft">Von Appilot entwerfen lassen</button>
+          </div>
+          <div class="create-card">
+            <b>2 · Aufnehmen</b>
+            <span>Sie klicken den Ablauf einmal in der Anwendung durch. Appilot zeichnet jeden Schritt auf.</span>
+            <button type="button" class="btn" id="btnRecord">Aufnahme starten</button>
+          </div>
+          <div class="create-card">
+            <b>3 · Prüfen und erzeugen</b>
+            <span>Probelauf in der Anwendung, danach Video und Klickanleitung für die Wissensdatenbank.</span>
+            <div class="btns"><button type="button" class="btn ghost" id="btnTest">Probelauf</button><button type="button" class="btn" id="btnMedia">Video und Anleitung erzeugen</button></div>
+            <label class="opt"><input type="checkbox" id="optVoice" checked> Video mit Sprecher vertonen</label>
+          </div>
+        </div>
+        <div class="note" id="cNote" hidden></div>
+
+        <div class="section-head"><h3>Schritte <span id="cCount"></span></h3><button type="button" class="btn small ghost" id="btnPolish" title="Titel und Erklärtexte aller Schritte neu formulieren">Texte von Appilot formulieren</button></div>
+        <ol class="steps" id="cSteps"></ol>
+
+        <div class="section-head"><h3>Fehlerbilder</h3><button type="button" class="btn small ghost" id="btnAddError">+ Fehlerbild</button></div>
+        <div class="errors" id="cErrors"></div>
+
+        <div class="section-head"><h3>Sprachfassungen</h3><button type="button" class="btn small ghost" id="btnLang" title="Einfache Sprache und Englisch von Appilot erstellen lassen">Sprachfassungen erstellen</button></div>
+        <p class="hint">Für Nutzer, die in Appilot Einfache Sprache oder Englisch wählen. Appilot erstellt sie beim Schritt „Zur Prüfung geben“, damit die Prüfung sie mitliest. Die Anwendung selbst bleibt deutsch.</p>
+        <div class="langs" id="cLangs"></div>
+
+        <div class="danger"><button type="button" class="lnk" id="btnDelete">Case löschen</button></div>
+      </div>
+    </section>
+  </section>
+
+  <!-- Wissensdatenbank -->
+  <section id="viewKb" class="view" hidden>
+    <aside class="list">
+      <div class="list-head"><h2>Wissensdatenbank</h2><button type="button" class="btn small" id="newNote">+ Notiz</button></div>
+      <ul id="kbList"></ul>
+    </aside>
+    <section class="detail" id="kbDetail">
+      <div class="empty" id="kbEmpty">Hier legt Appilot Videos und Klickanleitungen ab. Appilot nutzt alle Einträge, um Fragen in der Anwendung zu beantworten.</div>
+      <div id="kbView" hidden></div>
+    </section>
+  </section>
+
+  <!-- Updates der Anwendung -->
+  <section id="viewUpdates" class="view single" hidden>
+    <div class="detail upd">
+      <div class="upd-head">
+        <div>
+          <h2>Updates der Anwendung</h2>
+          <p class="hint" id="updState"></p>
+        </div>
+        <div class="btns">
+          <button type="button" class="btn" id="btnCheck">Auf Änderungen prüfen</button>
+          <label class="btn ghost" title="Karte der Anwendung als JSON-Datei, z. B. von der Browser-Erweiterung">Karte aus Datei prüfen<input type="file" id="mapFile" accept="application/json,.json" hidden></label>
+        </div>
+      </div>
+      <p class="hint">Appilot merkt sich bei jeder Freigabe, wie die Anwendung aussieht. Nach einem Update vergleicht Appilot die neue Version damit, markiert betroffene Cases, Videos, Klickanleitungen und Sprachfassungen als veraltet und schlägt die Änderungen vor.</p>
+      <div class="note" id="updNote" hidden></div>
+      <div id="updCases"></div>
+      <div id="updNews"></div>
+    </div>
+  </section>
+</main>
+
+<!-- Bühne: die echte Anwendung im Rahmen, für Aufnahme, Probelauf und Video -->
+<div class="stage-wrap" id="stageWrap" hidden>
+  <div class="stage-bar">
+    <b id="stageTitle">Aufnahme</b>
+    <span id="stageInfo"></span>
+    <span class="grow"></span>
+    <button type="button" class="btn" id="stageStop">Aufnahme beenden</button>
+    <button type="button" class="btn ghost" id="stageClose">Schließen</button>
+  </div>
+  <div class="stage-body">
+    <div class="stage-frame" id="stageFrame"><iframe id="frame" title="Zielanwendung" width="1280" height="800"></iframe></div>
+    <ol class="stage-log" id="stageLog"></ol>
+  </div>
+  <div class="progress" id="progress" hidden><i id="progressBar"></i></div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="/lib/store-idb.js?v=1"></script>
+<script src="/lib/store.js?v=1"></script>
+<script src="/lib/projekt.js?v=1"></script>
+<script src="/vendor/mp4-muxer.js?v=4"></script>
+<script src="/lib/media.js?v=4"></script>
+<script src="/lib/sprache.js?v=4"></script>
+<script src="/lib/update.js?v=4"></script>
+<script src="/lib/editor.js?v=4"></script>
+</body>
+</html>

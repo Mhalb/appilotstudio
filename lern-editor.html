@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lern-Editor · Appilot</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/lib/editor.css?v=4">
+<link rel="stylesheet" href="/lib/lern-editor.css?v=4">
+</head>
+<body>
+<header class="top">
+  <span class="brand"><span class="dot">✦</span> Appilot <b>Lern-Editor</b></span>
+  <nav class="tabs">
+    <a class="tab" href="/editor.html">Cases</a>
+    <span class="tab active">Lernstrecken</span>
+  </nav>
+  <span class="grow"></span>
+  <label class="role">Rolle
+    <select id="role">
+      <option value="autor">Autorin · Maria Sommer</option>
+      <option value="pruefer">Fachprüfung · Jens Albrecht</option>
+    </select>
+  </label>
+  <a class="lnk" href="/lernen.html" target="lernen">Lernstrecken ansehen ↗</a>
+</header>
+
+<main>
+  <section class="view">
+    <aside class="list">
+      <div class="list-head"><h2>Lernstrecken</h2><button type="button" class="btn small" id="newCourse">+ Neu</button></div>
+      <ul id="courseList"></ul>
+    </aside>
+
+    <section class="detail">
+      <div class="empty" id="emptyDetail">Wählen Sie links eine Lernstrecke oder legen Sie eine neue an.</div>
+      <div id="courseForm" hidden>
+        <div class="row-head">
+          <input id="kTitle" class="title-input" placeholder="Titel der Lernstrecke" aria-label="Titel">
+          <span class="badge" id="kStatus"></span>
+        </div>
+        <div class="meta" id="kMeta"></div>
+        <div class="flow" id="kFlow"></div>
+
+        <div class="kgrid">
+          <div>
+            <label class="lbl" for="kAudience">Zielgruppe</label>
+            <input id="kAudience" placeholder="z. B. Quereinsteiger ohne Vorkenntnisse">
+          </div>
+          <div class="kmin">
+            <label class="lbl" for="kMinutes">Dauer (Minuten)</label>
+            <input id="kMinutes" type="number" min="1" max="240">
+          </div>
+        </div>
+        <label class="lbl" for="kGoal">Lernziel</label>
+        <textarea id="kGoal" rows="2" placeholder="Was können die Lernenden am Ende?"></textarea>
+
+        <div class="create">
+          <div class="create-card">
+            <b>1 · Mit Appilot entwerfen</b>
+            <span>Thema, Stichworte und Quellen angeben. Appilot schlägt Szenario, Erklärungen, Übungen und Wissenscheck vor.</span>
+            <button type="button" class="btn" id="btnDraft">Entwurf erstellen</button>
+          </div>
+          <div class="create-card">
+            <b>2 · Selbst aufbauen</b>
+            <span>Mit dem didaktischen Gerüst starten oder Bausteine einzeln hinzufügen und bearbeiten.</span>
+            <button type="button" class="btn ghost" id="btnScaffold">Gerüst einfügen</button>
+          </div>
+          <div class="create-card">
+            <b>3 · Videos und Vorschau</b>
+            <span>Aus jeder Erklärung entsteht ein kurzes Erklärvideo. Die Vorschau zeigt die Lernstrecke wie für Lernende.</span>
+            <div class="btns"><button type="button" class="btn" id="btnVideos">Erklärvideos erzeugen</button><a class="btn ghost" id="btnPreview" target="lernen">Vorschau ↗</a></div>
+            <label class="opt"><input type="checkbox" id="optVoice" checked> Mit Sprecher vertonen</label>
+          </div>
+        </div>
+
+        <div class="draft" id="draftPanel" hidden>
+          <label class="lbl" for="dTopic">Thema und Stichworte</label>
+          <textarea id="dTopic" rows="3" placeholder="z. B. Grundlagen der Umsatzsteuer für Quereinsteiger: Steuerpflicht, Regelsteuersatz und ermäßigter Satz, Vorsteuer, Rechnungsangaben. Szenario: Rechnung eines Handwerkers prüfen."></textarea>
+          <label class="lbl" for="dSources">Quellen (optional): Auszüge aus Regelwerk, Handbuch oder Schulungsunterlagen</label>
+          <textarea id="dSources" rows="4" placeholder="Text hier einfügen. Appilot stützt sich darauf und nennt die Quelle in den Erklärungen."></textarea>
+          <div class="btns"><button type="button" class="btn" id="dGo">Entwerfen</button><button type="button" class="btn ghost" id="dCancel">Abbrechen</button></div>
+        </div>
+        <div class="note" id="kNote" hidden></div>
+
+        <div class="section-head">
+          <h3>Bausteine <span id="kCount"></span></h3>
+          <label class="add">+ Baustein <select id="addType"><option value="">wählen …</option></select></label>
+        </div>
+        <ol class="blocks" id="kBlocks"></ol>
+
+        <div class="danger"><button type="button" class="lnk" id="btnDelete">Lernstrecke löschen</button></div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<div class="progress fixed" id="progress" hidden><i id="progressBar"></i></div>
+
+<script src="/lib/store-idb.js?v=1"></script>
+<script src="/lib/store.js?v=1"></script>
+<script src="/lib/projekt.js?v=1"></script>
+<script src="/vendor/mp4-muxer.js?v=4"></script>
+<script src="/lib/media.js?v=4"></script>
+<script src="/lib/kurs.js?v=4"></script>
+<script src="/lib/scorm-export.js?v=4"></script>
+<script src="/lib/lern-editor.js?v=4"></script>
+</body>
+</html>
