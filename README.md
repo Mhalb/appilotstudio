@@ -38,6 +38,20 @@ node server.mjs
 Danach läuft das Studio auf http://localhost:3000. Für die KI braucht es `ANTHROPIC_API_KEY`, für den Sprecher
 `ELEVENLABS_API_KEY` in der Umgebung oder in `.env`.
 
+## Auf Vercel
+
+Vercel-Projekt `appilotstudio`, verbunden mit diesem Repo: `main` geht in Production, jeder Branch bekommt ein
+Vorschau-Deployment. Umgebungsvariablen (Settings → Environment Variables), jeweils für **Production und Preview**:
+
+| Variable | Wofür |
+| --- | --- |
+| `ANTHROPIC_API_KEY` | KI-Entwurf, Texte, Lernstrecken, Tutor, Sprachfassungen |
+| `ELEVENLABS_API_KEY` | Sprecher in Videos und beim Vorlesen |
+| `ELEVENLABS_VOICE_ID` | optional, andere Stimme |
+| `APPILOT_MODEL` | optional, anderes Claude-Modell |
+
+Fehlt ein Schlüssel, läuft das Studio weiter; Videos entstehen dann ohne Ton, die KI meldet sich als nicht erreichbar.
+
 ## Projekt und Zielanwendung
 
 Unter **Projekt** im Case-Editor stehen Name und Adresse der Zielanwendung und die Zielgruppe der Lernstrecken.
