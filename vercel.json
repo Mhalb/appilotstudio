@@ -1,0 +1,39 @@
+{
+  "functions": {
+    "api/appilot.js": {
+      "maxDuration": 300
+    },
+    "api/tts.js": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/editor.html"
+    },
+    {
+      "source": "/editor",
+      "destination": "/editor.html"
+    },
+    {
+      "source": "/lernen",
+      "destination": "/lernen.html"
+    },
+    {
+      "source": "/lern-editor",
+      "destination": "/lern-editor.html"
+    }
+  ]
+}

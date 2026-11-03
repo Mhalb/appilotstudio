@@ -1,0 +1,57 @@
+/* Ergänzungen zum Editor-Stil für den Lern-Editor. */
+span.tab { cursor: default; }
+.kgrid { display: grid; grid-template-columns: 1fr 160px; gap: 12px; margin-bottom: 10px; }
+.draft { border: 1px solid #b8d4ff; background: #f5f9ff; border-radius: 12px; padding: 12px 14px; margin: 10px 0; display: grid; gap: 6px; }
+.add { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
+.add select { height: 30px; border: 1px solid var(--blue); color: var(--blue); border-radius: 8px; background: #fff; font-weight: 600; padding: 0 6px; }
+
+.blocks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.blocks > li.none { color: var(--muted); border: 1px dashed var(--border); border-radius: 12px; padding: 14px; }
+.blk { border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+.blk-head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; }
+.blk-head .ico { width: 32px; height: 32px; border-radius: 8px; background: #eef4fb; display: grid; place-items: center; font-size: 16px; flex: none; }
+.blk-head .t { flex: 1; min-width: 0; }
+.blk-head .t b { display: block; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.blk-head .t span { font-size: 12px; color: var(--muted); }
+.blk-head .tools { display: flex; gap: 4px; }
+.blk-head .tools button { width: 28px; height: 26px; border: 1px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; color: var(--muted); }
+.blk-head .tools button:hover:not(:disabled) { color: var(--blue); border-color: var(--blue); }
+.blk-head .tools button:disabled { opacity: .35; cursor: default; }
+.blk-head .vid { font-size: 11px; font-weight: 600; color: var(--ok); background: var(--ok-bg); border-radius: 10px; padding: 2px 8px; white-space: nowrap; }
+.blk-body { border-top: 1px solid #eef1f4; padding: 12px 14px 14px; display: grid; gap: 10px; }
+.blk:not(.open) .blk-body { display: none; }
+.blk .hintline { font-size: 12px; color: var(--muted); margin: 0; }
+.fld { display: grid; gap: 4px; }
+.fld > span { font-size: 12px; font-weight: 600; color: #34495e; }
+.fld .row { display: grid; gap: 6px; grid-template-columns: 1fr 28px; align-items: start; }
+.fld .row.pt { grid-template-columns: 220px 1fr 28px; }
+.fld .row.opt { grid-template-columns: 24px 1fr 1fr 28px; align-items: center; }
+.fld .row.pair { grid-template-columns: 1fr 1fr 28px; }
+.fld .row.num { grid-template-columns: 28px 1fr 28px; align-items: center; }
+.fld .row .n { font-size: 12px; color: var(--muted); text-align: center; }
+.fld .row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--ok); }
+.fld .x, .fld .plus { border: 1px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; color: var(--muted); height: 30px; }
+.fld .plus { width: auto; justify-self: start; padding: 0 10px; font-size: 12px; font-weight: 600; color: var(--blue); border-color: #b8d4ff; }
+.fld .q { border: 1px solid #eef1f4; border-radius: 10px; padding: 10px; display: grid; gap: 6px; }
+.fld .q-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--muted); }
+.fld label.inline { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.fld label.inline input { width: auto; }
+.detail select:not(#addType) { width: 100%; border: 1px solid #c6cfd8; border-radius: 8px; padding: 8px 10px; background: #fff; }
+
+.issues { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13px; }
+.issues li { padding-left: 20px; position: relative; }
+.issues li::before { position: absolute; left: 0; }
+.issues li.fehlt { color: var(--bad); }
+.issues li.fehlt::before { content: "✕"; }
+.issues li.hinweis { color: var(--warn); }
+.issues li.hinweis::before { content: "!"; font-weight: 700; left: 4px; }
+.confirm { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.confirm input { width: auto; }
+
+.progress.fixed { position: fixed; left: 0; right: 0; bottom: 0; height: 6px; background: #dfe5eb; z-index: 70; }
+
+@media (max-width: 900px) {
+  .kgrid { grid-template-columns: 1fr; }
+  .fld .row.pt, .fld .row.opt, .fld .row.pair { grid-template-columns: 1fr 28px; }
+  .fld .row.opt input[type=checkbox] { grid-column: 1 / -1; }
+}

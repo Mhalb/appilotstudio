@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernen und Hilfe · Appilot</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/lib/lernen.css?v=4">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/lernen.html"><span class="dot">✦</span> Appilot <b>Lernen und Hilfe</b></a>
+  <span class="grow"></span>
+  <button type="button" class="hbtn" id="voice" aria-pressed="false">🔇 Vorlesen aus</button>
+  <a class="hlink" href="#" target="zielanwendung" id="toApp" hidden>Zur Anwendung ↗</a>
+  <a class="hlink" href="/lern-editor.html" target="lern-editor">Lern-Editor ↗</a>
+</header>
+
+<main id="app"></main>
+
+<button type="button" class="tutor-fab" id="tutorFab" hidden><span class="dot">✦</span> Frage an Appilot</button>
+<section class="tutor" id="tutor" hidden aria-label="Lernbegleiter Appilot">
+  <div class="tutor-head"><span class="dot">✦</span><b>Appilot</b><span>Ihr Lernbegleiter</span><button type="button" id="tutorClose" aria-label="Schließen">✕</button></div>
+  <div class="tutor-log" id="tutorLog"></div>
+  <form class="tutor-form" id="tutorForm">
+    <input id="tutorInput" placeholder="Was ist unklar?" autocomplete="off">
+    <button type="submit">Senden</button>
+  </form>
+</section>
+
+<script src="/lib/store-idb.js?v=1"></script>
+<script src="/lib/store.js?v=1"></script>
+<script src="/lib/projekt.js?v=1"></script>
+<script src="/lib/kurs.js?v=4"></script>
+<script src="/lib/media.js?v=4"></script>
+<script src="/lib/sprache.js?v=4"></script>
+<script src="/lib/lernen.js?v=4"></script>
+</body>
+</html>
