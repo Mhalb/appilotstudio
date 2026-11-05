@@ -7,8 +7,8 @@ KI-Hilfe. Arbeitstitel.
 
 ## Was das Studio kann
 
-- **Cases:** Arbeitsabläufe in der Zielanwendung, Schritt für Schritt. Entstehen aus einer Beschreibung (KI-Entwurf)
-  oder durch Aufnehmen in der Anwendung. Probelauf, Prüfung und Freigabe.
+- **Cases:** Arbeitsabläufe in der Zielanwendung, Schritt für Schritt. Entstehen aus einer Beschreibung (KI-Entwurf),
+  durch Aufnehmen in der Anwendung oder von Hand mit Bildschirmfotos. Probelauf, Prüfung und Freigabe.
 - **Medien:** Erklärvideo mit Sprecher und Klickanleitung aus einem Case.
 - **Lernstrecken:** interaktive Einheiten aus Szenario, Erklärung, Übungen, Praxis in der Anwendung und Spickzettel.
   KI-Entwurf, Tutor beim Lernen, Export als SCORM-Paket.
@@ -98,6 +98,26 @@ später über die Browser-Erweiterung.
 | Anwendung → Studio | `{ appilotReply: id, result }` | Antwort auf einen Befehl |
 
 Mit `?appilotCase=<id>` öffnet die Anwendung einen freigegebenen Case zum Mitmachen.
+
+### Schritte von Hand
+
+Für Anwendungen ohne Appilot legt man Schritte selbst an („+ Schritt“): Titel, Erklärung, Aktion (klicken, eintragen,
+wählen …), Element und Beispielwert. Je Schritt kommt ein Bildschirmfoto dazu (auswählen, hineinziehen oder mit ⌘V/Strg+V
+einfügen); darauf markiert man mit der Maus den Bereich, den Video und Klickanleitung hervorheben. Video und
+Klickanleitung entstehen dann aus diesen Bildern, ohne die Anwendung. Probelauf und Update-Check gibt es für solche
+Cases nicht.
+
+Datenformat (abwärtskompatibel, nur zusätzliche Felder am Schritt):
+
+```json
+{ "manual": true, "action": "click", "label": "Knopf „Speichern“", "value": "", "title": "…", "text": "…",
+  "shot": { "dataUrl": "data:image/jpeg;base64,…", "width": 1600, "height": 1000 },
+  "rect": { "x": 1082, "y": 203, "w": 269, "h": 88 } }
+```
+
+`shot` und `rect` haben dasselbe Format wie die Antworten `shot` und `rect` des Appilot-Protokolls; Bilder werden auf
+höchstens 1600 Pixel Breite verkleinert und als JPEG gespeichert. Die spätere Browser-Erweiterung füllt dieselben Felder
+automatisch. An die KI gehen die Bilder nicht.
 
 ### Update-Check
 

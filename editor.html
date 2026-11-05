@@ -6,7 +6,7 @@
 <title>Case-Editor · Appilot</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
 <script src="/lib/auth.js?v=1"></script>
-<link rel="stylesheet" href="/lib/editor.css?v=4">
+<link rel="stylesheet" href="/lib/editor.css?v=5">
 </head>
 <body>
 <header class="top">
@@ -80,15 +80,16 @@
           </div>
           <div class="create-card">
             <b>3 · Prüfen und erzeugen</b>
-            <span>Probelauf in der Anwendung, danach Video und Klickanleitung für die Wissensdatenbank.</span>
+            <span id="mediaInfo">Probelauf in der Anwendung, danach Video und Klickanleitung für die Wissensdatenbank.</span>
             <div class="btns"><button type="button" class="btn ghost" id="btnTest">Probelauf</button><button type="button" class="btn" id="btnMedia">Video und Anleitung erzeugen</button></div>
             <label class="opt"><input type="checkbox" id="optVoice" checked> Video mit Sprecher vertonen</label>
           </div>
         </div>
         <div class="note" id="cNote" hidden></div>
 
-        <div class="section-head"><h3>Schritte <span id="cCount"></span></h3><button type="button" class="btn small ghost" id="btnPolish" title="Titel und Erklärtexte aller Schritte neu formulieren">Texte von Appilot formulieren</button></div>
+        <div class="section-head"><h3>Schritte <span id="cCount"></span></h3><div class="btns"><button type="button" class="btn small ghost" id="btnPolish" title="Titel und Erklärtexte aller Schritte neu formulieren">Texte von Appilot formulieren</button><button type="button" class="btn small ghost" id="btnAddStep" title="Schritt selbst anlegen, mit Bildschirmfoto">+ Schritt</button></div></div>
         <ol class="steps" id="cSteps"></ol>
+        <input type="file" id="shotFile" accept="image/png,image/jpeg,image/webp" hidden>
 
         <div class="section-head"><h3>Fehlerbilder</h3><button type="button" class="btn small ghost" id="btnAddError">+ Fehlerbild</button></div>
         <div class="errors" id="cErrors"></div>
@@ -136,6 +137,14 @@
 </main>
 
 <!-- Bühne: die echte Anwendung im Rahmen, für Aufnahme, Probelauf und Video -->
+<!-- Bereich auf dem Bildschirmfoto markieren (Schritte von Hand) -->
+<dialog class="dlg shot-dlg" id="shotDlg">
+  <h2>Bereich markieren</h2>
+  <p class="hint">Ziehen Sie mit der Maus einen Rahmen um das Element, auf das es in diesem Schritt ankommt. Video und Klickanleitung heben diesen Bereich hervor.</p>
+  <div class="shot-canvas" id="shotCanvas"><img id="shotImg" alt="Bildschirmfoto des Schritts" draggable="false"><div class="shot-rect" id="shotRect" hidden></div></div>
+  <div class="btns"><button type="button" class="btn" id="shotOk">Übernehmen</button><button type="button" class="btn ghost" id="shotNone">Ohne Markierung</button><button type="button" class="btn ghost" id="shotCancel">Abbrechen</button></div>
+</dialog>
+
 <div class="stage-wrap" id="stageWrap" hidden>
   <div class="stage-bar">
     <b id="stageTitle">Aufnahme</b>
@@ -160,6 +169,6 @@
 <script src="/lib/media.js?v=4"></script>
 <script src="/lib/sprache.js?v=4"></script>
 <script src="/lib/update.js?v=4"></script>
-<script src="/lib/editor.js?v=4"></script>
+<script src="/lib/editor.js?v=5"></script>
 </body>
 </html>
