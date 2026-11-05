@@ -136,6 +136,27 @@ Datenformat (abwärtskompatibel, nur zusätzliche Felder am Schritt):
 höchstens 1600 Pixel Breite verkleinert und als JPEG gespeichert. Die spätere Browser-Erweiterung füllt dieselben Felder
 automatisch. An die KI gehen die Bilder nicht.
 
+### Aufnahme importieren
+
+Unter Cases → **Aufnahme importieren** übernimmt das Studio eine Datei `.appilot.json` aus der Browser-Erweiterung
+(Plan: `docs/erweiterung.md`). Es entsteht ein Case im Entwurf mit Schritten wie bei „Schritte von Hand“
+(`manual: true`, `source: "erweiterung"`) und vorläufigen Titeln („Auf ‚Speichern‘ klicken“); danach „Texte von
+Appilot formulieren“. Zum Ausprobieren ohne Erweiterung: `docs/beispiel-aufnahme.appilot.json`.
+
+```json
+{ "format": "appilot-aufnahme", "version": 1, "title": "Neuen Kunden anlegen",
+  "app": { "url": "https://portal.example.de/kunden", "title": "Kundenportal" },
+  "created": "2026-11-05T14:00:00Z", "recorder": "Appilot-Aufnahme 0.1.0",
+  "steps": [ { "action": "click", "label": "Knopf „Neuer Kunde“", "name": "Neuer Kunde", "role": "button",
+               "value": "", "valueText": "", "secret": false, "url": "…", "pageTitle": "Kunden",
+               "shot": { "dataUrl": "data:image/jpeg;base64,…", "width": 1600, "height": 1000 },
+               "rect": { "x": 1082, "y": 203, "w": 269, "h": 88 } } ] }
+```
+
+Die Datei gilt als fremde Eingabe (`lib/aufnahme.js`): höchstens 50 MB und 100 Schritte, nur Bilder als JPEG, PNG oder
+WebP, Markierungen müssen im Bild liegen, Adressen nur `http(s)`, Texte werden gekürzt, unbekannte Felder verworfen.
+Jedes Bild wird über eine Zeichenfläche neu erzeugt. Bei `secret: true` (Passwortfeld) bleibt der Wert leer.
+
 ### Update-Check
 
 Bei jeder Freigabe merkt sich das Studio die Karte der Bedienelemente, die der Case nutzt. Nach einem Update der

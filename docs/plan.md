@@ -64,17 +64,19 @@ Appilot in der Anwendung).
 - [ ] Verständliche Meldungen (kein „API-Schlüssel in Vercel“); Projekt-Dialog und Rückmeldung beim Speichern sind erledigt
 - [ ] Lern-Editor: Entwurfsbereich nach „Gerüst einfügen“ schließen
 
-## Schritt 3 – Aufnahme in beliebigen Web-Apps (Browser-Erweiterung, zurückgestellt)
+## Schritt 3 – Aufnahme in beliebigen Web-Apps (Browser-Erweiterung)
 
-Die Erweiterung füllt später dieselben Felder wie die Schritte von Hand (Aktion, Element, `shot`, `rect`).
+Plan: `docs/erweiterung.md`. Die Erweiterung füllt dieselben Felder wie die Schritte von Hand (Aktion, Element, `shot`,
+`rect`); Übergabe zuerst als Datei („Aufnahme importieren“).
 
-
-- [ ] Plan vorlegen: Aufbau der Erweiterung (Manifest V3), Berechtigungen, Kopplung mit dem Studio
-- [ ] Live-Check-Erweiterung aus `Mhalb/appilot2` sichten, was übernommen werden kann
-- [ ] Erweiterung spricht das Appilot-Protokoll (`ready`, `step`, `map`, `rect`, `shot`, …) für eine fremde Seite
-- [ ] Screenshots über `chrome.tabs.captureVisibleTab` statt `html-to-image`
-- [ ] Aufnahme in einer fremden Web-App (z. B. eigene Nextcloud) Ende-zu-Ende: Case → Video → Klickanleitung
-- [ ] Sicherheitsprüfung der Berechtigungen gegen das Security Framework
+- [x] Plan vorlegen: Aufbau, Berechtigungen (wenige, mehr nur auf Anfrage), Datenformat, Übergabe
+- [x] Live-Check-Erweiterung aus `Mhalb/appilot2` gesichtet: Rechteck und Barrierefreiheitsbaum übernehmen, `debugger` nur auf Anfrage
+- [ ] Prüfpunkte vorab: Seitenwechsel mit `activeTab`, Bild vor dem Klick, Qualität der Namen
+- [x] PR 1: Studio „Aufnahme importieren“ mit Prüfung der Datei und Beispieldatei (Branch `feature/aufnahme-import`)
+- [ ] PR 2: Erweiterung mit Aufnahme, Bildern, Übersichtsseite und Datei speichern
+- [ ] PR 3: Rechte auf Anfrage (Seitenwechsel, eingebettete Bereiche, Barrierefreiheitsbaum)
+- [ ] PR 4: Sicherheitsprüfung gegen das Security Framework, Tests, Anleitung
+- [ ] Aufnahme in einer fremden Web-App (z. B. eigene Nextcloud) Ende-zu-Ende: Aufnahme → Case → Video → Klickanleitung
 - [ ] Modell-Schnittstelle: Claude in der EU, Kolibri vorbereitet
 
 ## Schritt 4 – Messe-Reife (Januar 2027)
