@@ -28,6 +28,7 @@ KI-Hilfe. Arbeitstitel.
 | `lib/` | gemeinsame Bausteine: Projekt, Speicher, Zielanwendung, Medien, Kurs, SCORM, Sprachen, Update-Check |
 | `anmelden.html`, `lib/anmelden.js`, `lib/auth.js` | Anmeldung und Schutz der Studio-Seiten |
 | `api/` | Serverfunktionen: Anmeldung, Appilot (KI) und Sprecher (Text zu Sprache); `api/_lib/` gemeinsamer Servercode |
+| `extension/` | Browser-Erweiterung „Appilot-Aufnahme“ (eigene Anleitung in `extension/README.md`) |
 | `scripts/admin.mjs` | Nutzer anlegen bzw. neuen Einladungslink erzeugen (nur lokal) |
 | `vendor/` | eingebundene Bibliotheken mit Lizenz |
 | `server.mjs` | lokaler Server |
@@ -139,7 +140,7 @@ automatisch. An die KI gehen die Bilder nicht.
 ### Aufnahme importieren
 
 Unter Cases → **Aufnahme importieren** übernimmt das Studio eine Datei `.appilot.json` aus der Browser-Erweiterung
-(Plan: `docs/erweiterung.md`). Es entsteht ein Case im Entwurf mit Schritten wie bei „Schritte von Hand“
+`extension/` (Installation und Bedienung: `extension/README.md`, Plan: `docs/erweiterung.md`). Es entsteht ein Case im Entwurf mit Schritten wie bei „Schritte von Hand“
 (`manual: true`, `source: "erweiterung"`) und vorläufigen Titeln („Auf ‚Speichern‘ klicken“); danach „Texte von
 Appilot formulieren“. Zum Ausprobieren ohne Erweiterung: `docs/beispiel-aufnahme.appilot.json`.
 

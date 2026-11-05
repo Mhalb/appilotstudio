@@ -3,3 +3,5 @@ server.mjs
 appilotstudio.rtf
 # Nur lokal: Werkzeuge für Admins, nicht auf Vercel
 scripts/
+# Nur lokal bzw. als Erweiterung im Browser, nicht auf Vercel
+extension/

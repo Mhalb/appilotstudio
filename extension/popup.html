@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Appilot-Aufnahme</title>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body class="popup">
+<header class="head"><img src="icons/32.png" alt="" width="20" height="20"> <b>Appilot-Aufnahme</b></header>
+
+<section id="viewStart" hidden>
+  <label class="lbl" for="title">Name des Ablaufs</label>
+  <input id="title" maxlength="120" placeholder="z. B. Neuen Kunden anlegen">
+  <label class="opt"><input type="checkbox" id="recordValues" checked> Eingaben aufzeichnen (als Beispielwerte)</label>
+  <div class="hint-box" id="hint">
+    <b>Bitte beachten</b>
+    <p>Die Bildschirmfotos zeigen, was auf dem Bildschirm steht – auch echte Daten. Nehmen Sie am besten in einer
+      Testumgebung mit Beispieldaten auf. Passwörter und Kartennummern werden nie aufgezeichnet. Die Aufnahme bleibt
+      auf diesem Rechner, bis Sie sie als Datei speichern.</p>
+    <label class="opt"><input type="checkbox" id="hintOk"> Verstanden</label>
+  </div>
+  <button type="button" class="btn" id="btnStart">Aufnahme starten</button>
+  <p class="msg" id="msgStart" hidden></p>
+</section>
+
+<section id="viewRec" hidden>
+  <p class="rec"><span class="dot-rec"></span> <span id="recText">Aufnahme läuft</span></p>
+  <p class="small" id="recInfo"></p>
+  <p class="msg warn" id="recPaused" hidden></p>
+  <button type="button" class="btn" id="btnStop">Aufnahme beenden</button>
+  <p class="small">Klicken Sie den Ablauf in der Anwendung ganz normal durch. Jeder Klick und jede Eingabe wird ein Schritt.</p>
+</section>
+
+<section id="viewNo" hidden>
+  <p class="msg">Aufnehmen geht nur auf Webseiten (http oder https). Öffnen Sie die Anwendung und klicken Sie dann wieder auf das Symbol.</p>
+</section>
+
+<script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -71,9 +71,10 @@ Plan: `docs/erweiterung.md`. Die Erweiterung füllt dieselben Felder wie die Sch
 
 - [x] Plan vorlegen: Aufbau, Berechtigungen (wenige, mehr nur auf Anfrage), Datenformat, Übergabe
 - [x] Live-Check-Erweiterung aus `Mhalb/appilot2` gesichtet: Rechteck und Barrierefreiheitsbaum übernehmen, `debugger` nur auf Anfrage
-- [ ] Prüfpunkte vorab: Seitenwechsel mit `activeTab`, Bild vor dem Klick, Qualität der Namen
+- [x] Prüfpunkte vorab: Seitenwechsel mit `activeTab`, Bild vor dem Klick, Qualität der Namen (Ergebnisse in `docs/erweiterung.md`; Nextcloud steht noch aus)
 - [x] PR 1: Studio „Aufnahme importieren“ mit Prüfung der Datei und Beispieldatei (Branch `feature/aufnahme-import`)
-- [ ] PR 2: Erweiterung mit Aufnahme, Bildern, Übersichtsseite und Datei speichern
+- [x] PR 2: Erweiterung mit Aufnahme, Bildern, Übersichtsseite und Datei speichern (Branch `feature/erweiterung`, Ende-zu-Ende-Test)
+- [ ] Test im echten Browser über das Symbol (`activeTab`) in der eigenen Nextcloud
 - [ ] PR 3: Rechte auf Anfrage (Seitenwechsel, eingebettete Bereiche, Barrierefreiheitsbaum)
 - [ ] PR 4: Sicherheitsprüfung gegen das Security Framework, Tests, Anleitung
 - [ ] Aufnahme in einer fremden Web-App (z. B. eigene Nextcloud) Ende-zu-Ende: Aufnahme → Case → Video → Klickanleitung

@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Appilot-Aufnahme",
+  "version": "0.1.0",
+  "description": "Nimmt einen Klickweg in einer Web-Anwendung auf – mit Bildschirmfotos – für Videos, Klickanleitungen und Lernstrecken im Appilot Studio.",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "background": { "service_worker": "sw.js", "type": "module" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Appilot-Aufnahme",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+}
