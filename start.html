@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start · Appilot Studio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
+<script src="/lib/auth.js?v=2"></script>
+<link rel="stylesheet" href="/lib/editor.css?v=6">
+</head>
+<body>
+<header class="top">
+  <h1 class="page-title">Start</h1>
+  <span class="grow"></span>
+  <a class="btn small" href="/editor#neu">+ Neuer Case</a>
+  <a class="btn small ghost" href="/lern-editor#neu">+ Neue Lernstrecke</a>
+</header>
+
+<main class="start">
+  <section class="start-hello">
+    <h2 id="hello">Willkommen</h2>
+    <p id="helloSub" class="hint"></p>
+  </section>
+
+  <section class="start-card start-first" id="firstSteps" hidden aria-labelledby="firstTitle">
+    <div class="start-card-head"><h2 id="firstTitle">Erste Schritte</h2><span class="hint" id="firstCount"></span></div>
+    <ol class="first-list" id="firstList"></ol>
+  </section>
+
+  <div class="start-stats" id="stats"></div>
+
+  <h2 class="start-section">Meine Aufgaben</h2>
+  <div class="start-grid">
+    <section class="start-card" aria-labelledby="tWork">
+      <div class="start-card-head"><h3 id="tWork">In Arbeit</h3><span class="count-pill" id="nWork"></span></div>
+      <p class="hint">Entwürfe von Cases und Lernstrecken</p>
+      <ul class="task-list" id="listWork"></ul>
+    </section>
+    <section class="start-card" aria-labelledby="tReview">
+      <div class="start-card-head"><h3 id="tReview">Zur Prüfung</h3><span class="count-pill" id="nReview"></span></div>
+      <p class="hint">Vier-Augen-Prinzip: prüfen und freigeben</p>
+      <ul class="task-list" id="listReview"></ul>
+    </section>
+    <section class="start-card" aria-labelledby="tFix">
+      <div class="start-card-head"><h3 id="tFix">Nachbessern</h3><span class="count-pill" id="nFix"></span></div>
+      <p class="hint">Veraltet nach einem Update oder Video fehlt</p>
+      <ul class="task-list" id="listFix"></ul>
+    </section>
+  </div>
+</main>
+
+<script src="/lib/store-idb.js?v=1"></script>
+<script src="/lib/store.js?v=1"></script>
+<script src="/lib/projekt.js?v=1"></script>
+<script src="/lib/nav.js?v=1"></script>
+<script src="/lib/start.js?v=1"></script>
+</body>
+</html>

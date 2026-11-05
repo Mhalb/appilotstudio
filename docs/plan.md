@@ -57,10 +57,11 @@ Befund: Bei Anwendungen ohne Appilot ließ sich kein Case mit Schritten erstelle
 Appilot in der Anwendung).
 
 - [x] Schritte von Hand mit Bildschirmfoto und markiertem Bereich; Video und Klickanleitung daraus (Branch `feature/schritte-von-hand`)
-- [ ] Gemeinsamer Rahmen: gleiche Navigation in Case-Editor, Lern-Editor und Lernansicht; Projekt überall erreichbar
-- [ ] Startseite „Meine Aufgaben“ (Entwürfe, zu prüfen, veraltete Medien) und geführter erster Start (Projekt einrichten)
+- [x] Gemeinsame Navigation links in Start, Case-Editor und Lern-Editor; Projekt-Dialog überall (Branch `feature/navigation-start`)
+- [x] Startseite „Meine Aufgaben“ (in Arbeit, zur Prüfung, nachbessern) mit „Erste Schritte“ für den ersten Start
+- [ ] „Meine Aufgaben“ nach Konto filtern, sobald es echte Rollen gibt
 - [ ] Case: „Beschreiben“ und „Aufnehmen“ als Alternativen statt 1 und 2; Freigabe-Leiste erst, wenn es Schritte gibt
-- [ ] Verständliche Meldungen (kein „README“, kein „API-Schlüssel in Vercel“); Rückmeldung beim Speichern des Projekts
+- [ ] Verständliche Meldungen (kein „API-Schlüssel in Vercel“); Projekt-Dialog und Rückmeldung beim Speichern sind erledigt
 - [ ] Lern-Editor: Entwurfsbereich nach „Gerüst einfügen“ schließen
 
 ## Schritt 3 – Aufnahme in beliebigen Web-Apps (Browser-Erweiterung, zurückgestellt)
