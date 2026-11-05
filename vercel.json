@@ -6,6 +6,9 @@
     },
     "api/tts.js": {
       "maxDuration": 30
+    },
+    "api/auth.js": {
+      "maxDuration": 10
     }
   },
   "headers": [
@@ -35,6 +38,10 @@
     {
       "source": "/lern-editor",
       "destination": "/lern-editor.html"
+    },
+    {
+      "source": "/anmelden",
+      "destination": "/anmelden.html"
     }
   ]
 }

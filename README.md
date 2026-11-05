@@ -24,7 +24,9 @@ KI-Hilfe. Arbeitstitel.
 | `lern-editor.html`, `lib/lern-editor.js` | Lern-Editor für Lernstrecken |
 | `lernen.html`, `lib/lernen.js` | Lernansicht und Tutor |
 | `lib/` | gemeinsame Bausteine: Projekt, Speicher, Zielanwendung, Medien, Kurs, SCORM, Sprachen, Update-Check |
-| `api/` | Serverfunktionen: Appilot (KI) und Sprecher (Text zu Sprache) |
+| `anmelden.html`, `lib/anmelden.js`, `lib/auth.js` | Anmeldung und Schutz der Studio-Seiten |
+| `api/` | Serverfunktionen: Anmeldung, Appilot (KI) und Sprecher (Text zu Sprache); `api/_lib/` gemeinsamer Servercode |
+| `scripts/admin.mjs` | Nutzer anlegen bzw. neuen Einladungslink erzeugen (nur lokal) |
 | `vendor/` | eingebundene Bibliotheken mit Lizenz |
 | `server.mjs` | lokaler Server |
 
@@ -35,8 +37,8 @@ npm install
 node server.mjs
 ```
 
-Danach läuft das Studio auf http://localhost:3000. Für die KI braucht es `ANTHROPIC_API_KEY`, für den Sprecher
-`ELEVENLABS_API_KEY` in der Umgebung oder in `.env`.
+Danach läuft das Studio auf http://localhost:3000. Für die Anmeldung braucht es `DATABASE_URL`, für die KI
+`ANTHROPIC_API_KEY`, für den Sprecher `ELEVENLABS_API_KEY`, jeweils in der Umgebung oder in `.env`.
 
 ## Auf Vercel
 
@@ -45,12 +47,37 @@ Vorschau-Deployment. Umgebungsvariablen (Settings → Environment Variables), je
 
 | Variable | Wofür |
 | --- | --- |
+| `DATABASE_URL` | Datenbank (Neon Postgres, Frankfurt); setzt die Neon-Integration von selbst |
 | `ANTHROPIC_API_KEY` | KI-Entwurf, Texte, Lernstrecken, Tutor, Sprachfassungen |
 | `ELEVENLABS_API_KEY` | Sprecher in Videos und beim Vorlesen |
 | `ELEVENLABS_VOICE_ID` | optional, andere Stimme |
 | `APPILOT_MODEL` | optional, anderes Claude-Modell |
 
 Fehlt ein Schlüssel, läuft das Studio weiter; Videos entstehen dann ohne Ton, die KI meldet sich als nicht erreichbar.
+
+## Anmeldung
+
+Nur angemeldete Nutzer kommen ins Studio; `/api/appilot` und `/api/tts` antworten ohne Anmeldung mit 401.
+Es gibt keine Selbstregistrierung: Ein Admin legt Nutzer an und gibt ihnen einen Einladungslink, über den sie ihr
+Passwort festlegen. Den ersten Admin (und bis zur Nutzerverwaltung jeden weiteren Nutzer) legt das Skript an:
+
+```bash
+APP_URL=https://<adresse-des-studios> node scripts/admin.mjs name@firma.de "Vorname Nachname" admin
+```
+
+Rollen: `admin`, `autor`, `pruefer`. Gibt es die E-Mail schon, entsteht nur ein neuer Link (so lässt sich auch ein
+vergessenes Passwort zurücksetzen). Der Link gilt 7 Tage und nur einmal.
+
+| Thema | Umsetzung |
+| --- | --- |
+| Passwörter | mindestens 12 Zeichen, `scrypt` aus `node:crypto` mit zufälligem Salz |
+| Sitzung | zufälliges Token im Cookie `appilot_session` (`HttpOnly`, `SameSite=Lax`, `Secure` bei HTTPS), 12 Stunden; in der Datenbank nur der SHA-256-Hash |
+| Einladung | einmaliger Link, 7 Tage, nur als Hash gespeichert; beim Festlegen enden alle alten Sitzungen |
+| Fehlversuche | nach 5 falschen Passwörtern ist das Konto 15 Minuten gesperrt; gleiche Meldung für unbekannte E-Mails |
+| Fremde Seiten | schreibende Anfragen mit fremdem `Origin` werden abgelehnt |
+
+Die Tabellen `users`, `sessions` und `invites` legt der Server beim ersten Zugriff selbst an (`api/_lib/db.js`).
+Abhängigkeit: [`postgres`](https://github.com/porsager/postgres) (postgres.js, Unlicense, ohne weitere Abhängigkeiten).
 
 ## Projekt und Zielanwendung
 

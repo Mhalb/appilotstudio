@@ -14,6 +14,7 @@ import {
   courseSystem, courseSchema, cleanCaseRefs, buildTutor, TUTOR_SCHEMA, cleanCourseForTutor,
   cleanLang, translateSystem, TRANSLATE_SCHEMA, cleanTexts,
 } from "../lib/prompt.js";
+import { requireUser } from "./_lib/auth.js";
 
 const client = new Anthropic();
 const MODEL = process.env.APPILOT_MODEL || "claude-opus-5-5";
@@ -128,6 +129,7 @@ async function translate(body) {
 const MODES = { draft, polish, course, tutor, translate };
 
 export default async function handler(req, res) {
+  if (!(await requireUser(req, res))) return;
   if (req.method !== "POST") {
     res.statusCode = 405;
     return res.end();

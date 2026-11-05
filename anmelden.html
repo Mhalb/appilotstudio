@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anmelden · Appilot Studio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/lib/editor.css?v=4">
+<link rel="stylesheet" href="/lib/anmelden.css?v=1">
+</head>
+<body class="login-page">
+<main class="login">
+  <div class="login-brand"><span class="dot">✦</span> Appilot <b>Studio</b></div>
+
+  <form class="login-card" id="formLogin" hidden novalidate>
+    <h1>Anmelden</h1>
+    <label>E-Mail
+      <input type="email" id="email" autocomplete="username" required autofocus>
+    </label>
+    <label>Passwort
+      <input type="password" id="password" autocomplete="current-password" required>
+    </label>
+    <p class="login-msg" id="msgLogin" role="alert" hidden></p>
+    <button type="submit" class="btn" id="btnLogin">Anmelden</button>
+    <p class="hint">Noch kein Zugang oder Passwort vergessen? Ihr Admin schickt Ihnen einen Link.</p>
+  </form>
+
+  <form class="login-card" id="formInvite" hidden novalidate>
+    <h1>Passwort festlegen</h1>
+    <p class="login-who" id="inviteWho"></p>
+    <input type="email" id="inviteEmail" autocomplete="username" hidden>
+    <label>Neues Passwort <span class="hint">mindestens 12 Zeichen</span>
+      <input type="password" id="newPassword" autocomplete="new-password" minlength="12" required>
+    </label>
+    <label>Passwort wiederholen
+      <input type="password" id="newPassword2" autocomplete="new-password" minlength="12" required>
+    </label>
+    <p class="login-msg" id="msgInvite" role="alert" hidden></p>
+    <button type="submit" class="btn" id="btnInvite">Passwort speichern und anmelden</button>
+  </form>
+
+  <div class="login-card" id="boxError" hidden>
+    <h1>Anmeldung nicht möglich</h1>
+    <p class="login-msg" id="msgError" role="alert"></p>
+    <a class="btn ghost" href="/anmelden">Zur Anmeldung</a>
+  </div>
+</main>
+<script src="/lib/anmelden.js?v=1"></script>
+</body>
+</html>
