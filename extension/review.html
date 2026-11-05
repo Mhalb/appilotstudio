@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aufnahme prüfen · Appilot</title>
+<link rel="icon" href="icons/32.png">
+<link rel="stylesheet" href="ui.css">
+</head>
+<body class="review">
+<header class="top"><img src="icons/32.png" alt="" width="24" height="24"> <b>Appilot-Aufnahme</b> <span class="grow"></span> <span class="small" id="meta"></span></header>
+<main>
+  <section class="card">
+    <label class="lbl" for="title">Name des Ablaufs</label>
+    <input id="title" maxlength="120">
+    <p class="msg warn" id="notes" hidden></p>
+    <div class="actions">
+      <button type="button" class="btn" id="btnSave">Datei speichern</button>
+      <button type="button" class="btn ghost" id="btnDiscard">Aufnahme verwerfen</button>
+    </div>
+    <p class="msg ok" id="saved" hidden>Gespeichert. Im Appilot Studio unter <b>Cases → Aufnahme importieren</b> diese Datei wählen. Danach können
+      Sie die Aufnahme hier verwerfen.</p>
+    <p class="small">Prüfen Sie die Schritte: Überflüssige löschen, Namen bei Bedarf verbessern. Die Texte für Video und Anleitung
+      formuliert Appilot später im Studio.</p>
+  </section>
+  <ol class="steps" id="steps"></ol>
+  <p class="empty" id="empty" hidden>Diese Aufnahme hat keine Schritte.</p>
+</main>
+<script type="module" src="review.js"></script>
+</body>
+</html>

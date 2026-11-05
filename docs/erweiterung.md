@@ -41,7 +41,7 @@ SCORM.“
 | `activeTab` | immer, greift erst nach Klick auf das Symbol | Zugriff nur auf den Tab, in dem die Aufnahme startet |
 | `scripting` | immer | Aufnahme-Skript in diesen Tab laden |
 | `storage` | immer | Einstellungen (z. B. Hinweis gesehen) |
-| Host-Recht für **genau die Adresse** der Anwendung | auf Anfrage beim Start, nur wenn nötig | Aufnahme läuft über Seitenwechsel hinweg weiter (siehe Prüfpunkt 1) |
+| Host-Recht für eine **weitere Adresse** der Anwendung | auf Anfrage, wenn die Anwendung die Adresse wechselt | Aufnahme läuft weiter (innerhalb derselben Adresse reicht `activeTab`, siehe Prüfpunkt 1) |
 | Host-Recht für eine **eingebettete Adresse** (iframe) | auf Anfrage, wenn ein Klick in einem fremden Rahmen landet | Klicks und Namen auch dort erkennen |
 | `debugger` | auf Anfrage, wenn Elemente keinen verständlichen Namen haben | Barrierefreiheitsbaum lesen wie der Live-Check |
 
@@ -74,9 +74,12 @@ Auf verwalteten Rechnern kann die IT Erweiterungen sperren; dann bleiben die Sch
 ## Technik
 
 - **Manifest V3**, Chrome und Edge. Service Worker, Popup, Aufnahme-Skript, Übersichtsseite. Kein Build-Schritt.
-- **Bildschirmfotos** über `chrome.tabs.captureVisibleTab` (sichtbarer Bereich). Chrome erlaubt höchstens zwei Aufnahmen
-  pro Sekunde. Deshalb hält die Erweiterung immer das **letzte ruhige Bild** bereit (neu nach Laden, Scrollen und
-  Änderungen der Seite) und nimmt beim Klick dieses Bild. So zeigt das Bild sicher den Stand vor dem Klick.
+- **Bildschirmfotos** über `chrome.tabs.captureVisibleTab` (sichtbarer Bereich, etwa 30–90 ms). Chrome erlaubt höchstens
+  zwei Aufnahmen pro Sekunde. Bei Klicks entsteht das Bild **beim Drücken der Maustaste** (`pointerdown`), also bevor die
+  Seite auf den Klick reagiert; geöffnete Menüs und Hover-Zustände sind damit zu sehen. Zusätzlich hält die Erweiterung
+  ein **letztes ruhiges Bild** bereit (höchstens eins pro Sekunde, damit beim Klick Luft im Kontingent bleibt) und nimmt
+  es, wenn das Bild beim Drücken scheitert oder die Seite schon vorher eine neue Adresse geladen hat. Bei Eingaben
+  entsteht das Bild nach dem Verlassen des Felds.
 - Bilder werden wie im Studio auf höchstens 1600 Pixel Breite verkleinert und als JPEG gespeichert.
 - Aufnahmen liegen bis zum Speichern in IndexedDB der Erweiterung (dafür ist kein Recht nötig) und werden nach dem
   Speichern bzw. Verwerfen gelöscht.
@@ -115,14 +118,34 @@ Ein Schritt hat dieselben Felder wie ein Schritt von Hand im Studio (siehe READM
 erzeugt. Es entsteht ein Case im Entwurf mit `manual: true`, `source: "erweiterung"` und vorläufigen Titeln wie
 „Auf ‚Neuer Kunde‘ klicken“. Danach „Texte von Appilot formulieren“.
 
-## Prüfpunkte vorab (kleiner Test, bevor gebaut wird)
+## Prüfpunkte vorab – Ergebnisse (5. 11. 2026)
 
-1. **Seitenwechsel:** Behält `activeTab` den Zugriff, wenn die Anwendung eine neue Seite lädt? Wenn nicht, fragt die
-   Erweiterung beim Start einmal nach dem Recht für genau diese Adresse.
-2. **Bild vor dem Klick:** Wie oft ist das „letzte ruhige Bild“ in schnellen Anwendungen (z. B. SAP Fiori, Nextcloud)
-   wirklich der richtige Stand?
-3. **Namen:** Wie gut sind die Namen ohne Barrierefreiheitsbaum in zwei echten Anwendungen? Davon hängt ab, wie oft
-   `debugger` nötig ist.
+Gemessen mit einem Test-Gerüst der Erweiterung in Chromium 128 (automatisiert, Klicks mit Hover und 110 ms
+Drückdauer) in der SAP-Fiori-Demo „Shopping Cart“ (ui5.sap.com) und auf betterknow.de (Seitenwechsel). Nextcloud steht
+noch aus.
+
+1. **Seitenwechsel – geklärt.** Laut Chromium-Quellcode (`ActiveTabPermissionGranter::DidFinishNavigation`) bleibt
+   `activeTab` bei Seitenwechseln **innerhalb derselben Adresse** (gleiche Herkunft) erhalten und endet erst beim Wechsel
+   auf eine andere Adresse. Folgen: Das Aufnahme-Skript wird nach jedem Laden einer Seite neu eingesetzt
+   (`chrome.tabs.onUpdated` + `scripting.executeScript`, dafür reicht `activeTab`). Wechselt die Anwendung die Adresse
+   (z. B. Anmeldung über Microsoft und zurück), pausiert die Aufnahme und bietet an, das Recht für die neue Adresse
+   anzufragen.
+2. **Bild vor dem Klick – Lösung gefunden.** Das zuerst geplante „letzte ruhige Bild“ allein reicht nicht: Auf
+   betterknow.de ändert der Hover-Effekt die Seite direkt vor dem Klick, das Bild war in 3 von 3 Klicks veraltet. Ein Bild
+   **beim Drücken der Maustaste** war in allen Fällen 30–90 ms nach dem Drücken fertig, vor jeder Reaktion auf den Klick
+   (kein Seitenwechsel, kein neuer Inhalt). In der Fiori-Demo zeigt es den Knopf im gedrückten Zustand, das ist in
+   Ordnung. Zweimal scheiterte es am Limit von zwei Bildern pro Sekunde; deshalb höchstens ein ruhiges Bild pro Sekunde
+   und das ruhige Bild als Rückfall.
+3. **Namen – ohne `debugger` meist gut.** Namen wie ein Screenreader (aria-label, label, Text): betterknow.de 17 von 18
+   Elementen verständlich (Ausnahme: Logo mit Dateinamen), Fiori-Demo 60 von 60 mit Namen. Bei Listeneinträgen in Fiori
+   kommen aber Preis und unsichtbarer Hinweistext mit („10" Portable DVD player 449,99 EUR Hervorgehoben …“). Die
+   Erweiterung nimmt deshalb den Titel des Eintrags und lässt Texte weg, die nur für Screenreader gedacht sind
+   (`sapUiInvisibleText`, `sr-only`, abgeschnittene Bereiche). `debugger` bleibt die Ausnahme auf Anfrage.
+
+Das Test-Gerüst war ein Wegwerf-Stand und liegt nicht im Repo; die Erweiterung wird in PR 2 sauber aufgebaut.
+
+Beim Bau (PR 2) zusätzlich gelernt: Tippen in ein Feld ändert den DOM nicht; nach Eingaben macht die Erweiterung
+deshalb immer ein frisches Bild (150 ms nach der Änderung, damit der Wert gezeichnet ist) und nie das ruhige Bild.
 
 ## Umsetzung in kleinen PRs
 
