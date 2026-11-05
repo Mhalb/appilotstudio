@@ -1,3 +1,5 @@
 # Nur lokal: server.mjs startet das Studio ohne Vercel
 server.mjs
 appilotstudio.rtf
+# Nur lokal: Werkzeuge für Admins, nicht auf Vercel
+scripts/

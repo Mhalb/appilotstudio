@@ -1,6 +1,8 @@
 // POST /api/tts  { text, lang }  ->  audio/mpeg   (lang: "de", "einfach" oder "en")
 // Vertonung der Videos über ElevenLabs. Braucht ELEVENLABS_API_KEY als Umgebungsvariable;
 // optional ELEVENLABS_VOICE_ID (Stimme) und ELEVENLABS_MODEL.
+import { requireUser } from "./_lib/auth.js";
+
 const VOICE = process.env.ELEVENLABS_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb";
 const MODEL = process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2";
 const MAX_CHARS = 1200;
@@ -36,6 +38,7 @@ function fail(res, status, error) {
 }
 
 export default async function handler(req, res) {
+  if (!(await requireUser(req, res))) return;
   if (req.method !== "POST") return fail(res, 405, "Nur POST");
   const key = process.env.ELEVENLABS_API_KEY;
   if (!key) return fail(res, 503, "ELEVENLABS_API_KEY fehlt");

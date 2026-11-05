@@ -1,29 +1,32 @@
 // Lokaler Server: node server.mjs  ->  http://localhost:3000
-// Liefert die Seiten des Studios aus und leitet /api/appilot und /api/tts an dieselben Funktionen wie auf Vercel.
-// Schlüssel (ANTHROPIC_API_KEY, ELEVENLABS_API_KEY) kommen aus der Umgebung oder aus .env.
+// Liefert die Seiten des Studios aus und leitet /api/... an dieselben Funktionen wie auf Vercel.
+// Schlüssel (ANTHROPIC_API_KEY, ELEVENLABS_API_KEY, DATABASE_URL) kommen aus der Umgebung oder aus .env.
 import http from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 
 try { process.loadEnvFile(); } catch { /* ohne .env: Umgebungsvariablen genügen */ }
-const { default: handler } = await import("./api/appilot.js");
-const { default: tts } = await import("./api/tts.js");
+const API = {
+  "/api/appilot": (await import("./api/appilot.js")).default,
+  "/api/tts": (await import("./api/tts.js")).default,
+  "/api/auth": (await import("./api/auth.js")).default,
+};
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const types = { ".html": "text/html; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml", ".css": "text/css", ".js": "text/javascript", ".json": "application/json" };
-const PUBLIC = ["/editor.html", "/lernen.html", "/lern-editor.html", "/lib/", "/vendor/"];
-const PAGES = { "/": "/editor.html", "/editor": "/editor.html", "/lernen": "/lernen.html", "/lern-editor": "/lern-editor.html" };
+const PUBLIC = ["/editor.html", "/lernen.html", "/lern-editor.html", "/anmelden.html", "/lib/", "/vendor/"];
+const PAGES = { "/": "/editor.html", "/editor": "/editor.html", "/lernen": "/lernen.html", "/lern-editor": "/lern-editor.html", "/anmelden": "/anmelden.html" };
 
 http.createServer(async (req, res) => {
-  if (req.url.startsWith("/api/appilot") || req.url.startsWith("/api/tts")) {
+  const route = req.url.split("?")[0];
+  if (API[route]) {
     let raw = "";
     for await (const chunk of req) raw += chunk;
     try { req.body = JSON.parse(raw || "{}"); } catch { req.body = {}; }
-    return (req.url.startsWith("/api/tts") ? tts : handler)(req, res);
+    return API[route](req, res);
   }
-  let path = req.url.split("?")[0];
-  path = normalize(PAGES[path] || path);
+  const path = normalize(PAGES[route] || route);
   // Die Anweisungen an die KI bleiben auf dem Server.
   if (!PUBLIC.some(p => path.startsWith(p)) || path.includes("..") || path === "/lib/prompt.js") {
     res.statusCode = 404;
