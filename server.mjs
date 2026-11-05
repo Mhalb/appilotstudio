@@ -15,8 +15,8 @@ const API = {
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const types = { ".html": "text/html; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml", ".css": "text/css", ".js": "text/javascript", ".json": "application/json" };
-const PUBLIC = ["/editor.html", "/lernen.html", "/lern-editor.html", "/anmelden.html", "/lib/", "/vendor/"];
-const PAGES = { "/": "/editor.html", "/editor": "/editor.html", "/lernen": "/lernen.html", "/lern-editor": "/lern-editor.html", "/anmelden": "/anmelden.html" };
+const PUBLIC = ["/start.html", "/editor.html", "/lernen.html", "/lern-editor.html", "/anmelden.html", "/lib/", "/vendor/"];
+const PAGES = { "/": "/start.html", "/start": "/start.html", "/editor": "/editor.html", "/lernen": "/lernen.html", "/lern-editor": "/lern-editor.html", "/anmelden": "/anmelden.html" };
 
 http.createServer(async (req, res) => {
   const route = req.url.split("?")[0];

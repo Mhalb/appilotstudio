@@ -25,7 +25,11 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/editor.html"
+      "destination": "/start.html"
+    },
+    {
+      "source": "/start",
+      "destination": "/start.html"
     },
     {
       "source": "/editor",

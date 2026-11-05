@@ -20,6 +20,8 @@ KI-Hilfe. Arbeitstitel.
 
 | Ordner | Inhalt |
 | --- | --- |
+| `start.html`, `lib/start.js` | Startseite: Erste Schritte und „Meine Aufgaben“ |
+| `lib/nav.js` | gemeinsame Navigation (Seitenleiste), Projekt-Dialog |
 | `editor.html`, `lib/editor.js` | Case-Editor mit Wissensbasis und Update-Check |
 | `lern-editor.html`, `lib/lern-editor.js` | Lern-Editor für Lernstrecken |
 | `lernen.html`, `lib/lernen.js` | Lernansicht und Tutor |
@@ -79,9 +81,24 @@ vergessenes Passwort zurücksetzen). Der Link gilt 7 Tage und nur einmal.
 Die Tabellen `users`, `sessions` und `invites` legt der Server beim ersten Zugriff selbst an (`api/_lib/db.js`).
 Abhängigkeit: [`postgres`](https://github.com/porsager/postgres) (postgres.js, Unlicense, ohne weitere Abhängigkeiten).
 
+## Navigation und Adressen
+
+Start, Case-Editor und Lern-Editor haben links dieselbe Navigation (`lib/nav.js`), auf schmalen Fenstern oben. Darunter
+stehen das Projekt und der angemeldete Nutzer. Die Lernansicht hat bewusst keine Seitenleiste, weil sie zeigt, was
+Lernende sehen.
+
+| Adresse | Inhalt |
+| --- | --- |
+| `/` oder `/start` | Startseite: Erste Schritte (bis alles einmal erledigt ist), Überblick, „Meine Aufgaben“ |
+| `/editor#cases`, `#wissen`, `#updates` | Cases, Wissen (Videos, Klickanleitungen, Notizen), Updates |
+| `/editor#neu`, `/lern-editor#neu` | neuen Case bzw. neue Lernstrecke anlegen |
+| `/editor#case=<id>`, `#kb=<id>`, `/lern-editor#k=<id>` | einen Eintrag öffnen |
+| `…#projekt` | Projekt-Dialog öffnen (auf jeder Seite mit Navigation) |
+
 ## Projekt und Zielanwendung
 
-Unter **Projekt** im Case-Editor stehen Name und Adresse der Zielanwendung und die Zielgruppe der Lernstrecken.
+Unter **Projekt** in der Navigation stehen Name und Adresse der Zielanwendung und die Zielgruppe der Lernstrecken. Die
+Adresse ist optional: Ohne sie (oder ohne Appilot in der Anwendung) legt man Schritte von Hand an.
 Name und Zielgruppe fließen in die Anweisungen an die KI, die Adresse in Aufnahme, Probelauf, Video, Update-Check und
 in die Praxis-Bausteine der Lernstrecken (auch im SCORM-Paket).
 
