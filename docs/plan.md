@@ -51,7 +51,22 @@ Daten in einer Datenbank.
 - [ ] Sicherheitsprüfung gegen das Security Framework (Cookies, Fehlversuche, Rechte, Schlüssel)
 - [ ] Medien (Videos, PDFs) serverseitig ablegen (Vercel Blob in der EU) – danach
 
+## Zwischendurch – Bedienung (Rundgang 5. 11. 2026)
+
+Befund: Bei Anwendungen ohne Appilot ließ sich kein Case mit Schritten erstellen (Entwurf und Aufnahme brauchen beide
+Appilot in der Anwendung).
+
+- [x] Schritte von Hand mit Bildschirmfoto und markiertem Bereich; Video und Klickanleitung daraus (Branch `feature/schritte-von-hand`)
+- [ ] Gemeinsamer Rahmen: gleiche Navigation in Case-Editor, Lern-Editor und Lernansicht; Projekt überall erreichbar
+- [ ] Startseite „Meine Aufgaben“ (Entwürfe, zu prüfen, veraltete Medien) und geführter erster Start (Projekt einrichten)
+- [ ] Case: „Beschreiben“ und „Aufnehmen“ als Alternativen statt 1 und 2; Freigabe-Leiste erst, wenn es Schritte gibt
+- [ ] Verständliche Meldungen (kein „README“, kein „API-Schlüssel in Vercel“); Rückmeldung beim Speichern des Projekts
+- [ ] Lern-Editor: Entwurfsbereich nach „Gerüst einfügen“ schließen
+
 ## Schritt 3 – Aufnahme in beliebigen Web-Apps (Browser-Erweiterung, zurückgestellt)
+
+Die Erweiterung füllt später dieselben Felder wie die Schritte von Hand (Aktion, Element, `shot`, `rect`).
+
 
 - [ ] Plan vorlegen: Aufbau der Erweiterung (Manifest V3), Berechtigungen, Kopplung mit dem Studio
 - [ ] Live-Check-Erweiterung aus `Mhalb/appilot2` sichten, was übernommen werden kann
