@@ -6,7 +6,7 @@
 <title>Case-Editor · Appilot</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
 <script src="/lib/auth.js?v=2"></script>
-<link rel="stylesheet" href="/lib/editor.css?v=6">
+<link rel="stylesheet" href="/lib/editor.css?v=7">
 </head>
 <body>
 <header class="top">
@@ -27,6 +27,9 @@
   <section id="viewCases" class="view">
     <aside class="list">
       <div class="list-head"><h2>Cases</h2><button type="button" class="btn small" id="newCase">+ Neuer Case</button></div>
+      <button type="button" class="btn small ghost import-btn" id="btnImport" title="Datei .appilot.json aus der Appilot-Erweiterung">⤓ Aufnahme importieren</button>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+      <p class="note" id="importNote" hidden></p>
       <ul id="caseList"></ul>
     </aside>
 
@@ -146,6 +149,7 @@
 <script src="/lib/media.js?v=4"></script>
 <script src="/lib/sprache.js?v=4"></script>
 <script src="/lib/update.js?v=4"></script>
-<script src="/lib/editor.js?v=6"></script>
+<script src="/lib/aufnahme.js?v=1"></script>
+<script src="/lib/editor.js?v=7"></script>
 </body>
 </html>

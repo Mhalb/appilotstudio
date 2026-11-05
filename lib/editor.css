@@ -328,3 +328,5 @@ body.with-nav { padding-left: var(--nav-w); }
   .task-list a { grid-template-columns: minmax(0, 1fr) auto; }
   .top .btn { display: none; }
 }
+.import-btn { width: 100%; margin-bottom: 10px; }
+.list > .note { margin: 0 0 10px; font-size: 12px; }
