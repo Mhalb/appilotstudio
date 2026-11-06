@@ -96,10 +96,25 @@ Lernende sehen.
 | `/editor#case=<id>`, `#kb=<id>`, `/lern-editor#k=<id>` | einen Eintrag öffnen |
 | `…#projekt` | Projekt-Dialog öffnen (auf jeder Seite mit Navigation) |
 
-## Projekt und Zielanwendung
+## Projekte und Zielanwendung
 
-Unter **Projekt** in der Navigation stehen Name und Adresse der Zielanwendung und die Zielgruppe der Lernstrecken. Die
-Adresse ist optional: Ohne sie (oder ohne Appilot in der Anwendung) legt man Schritte von Hand an.
+Ein **Projekt** ist ein Auftrag mit einer Zielanwendung, z. B. „Einführung Kundenportal“ für die Muster GmbH. Cases,
+Lernstrecken und Medien gehören immer zu genau einem Projekt; Startseite, Cases, Lernstrecken, Wissen, Updates und die
+Lernansicht zeigen nur das aktuelle Projekt.
+
+- **Wechseln:** oben in der Navigation; die Liste ist nach Kunde gruppiert und durchsuchbar.
+- **Neues Projekt:** im Projektwechsel oder über `#projekt-neu`; es wird gleich geöffnet.
+- **Projekte verwalten:** Überblick mit Anzahl der Cases, Lernstrecken und Medien, öffnen, archivieren,
+  wiederherstellen. Archivierte Projekte verschwinden nur aus dem Wechsel, ihre Inhalte bleiben.
+- **Projekt-Einstellungen** (unten in der Navigation): Projektname, Kunde, Name und Adresse der Zielanwendung,
+  Zielgruppe der Lernstrecken. Die Adresse ist optional: Ohne sie (oder ohne Appilot in der Anwendung) nimmt man mit der
+  Erweiterung auf oder legt Schritte von Hand an.
+
+Daten: Tabelle `projects` (`id`, `title`, `kunde`, `name`, `url`, `audience`, `seenVersion`, `archived`), jeder Case,
+jede Lernstrecke und jeder Eintrag unter „Wissen“ hat `projectId`. Das aktuelle Projekt steht unter meta
+`aktuellesProjekt`. Beim ersten Start nach der Umstellung wird aus dem bisherigen Projekt (meta `projekt`) das erste
+Projekt, und alle vorhandenen Inhalte kommen dort hinein.
+
 Name und Zielgruppe fließen in die Anweisungen an die KI, die Adresse in Aufnahme, Probelauf, Video, Update-Check und
 in die Praxis-Bausteine der Lernstrecken (auch im SCORM-Paket).
 
@@ -183,8 +198,11 @@ Hat ein freigegebener Case noch keinen Vergleichsstand, gilt die erste geprüfte
 
 ## Speicher
 
-Alle Seiten lesen und schreiben über `lib/store.js`. Heute liegt alles im Browser (`lib/store-idb.js`, IndexedDB); in
-Schritt 2 kommt ein Server-Speicher mit derselben Schnittstelle. Die Datenformate von Case und Lernstrecke bleiben gleich.
+Alle Seiten lesen und schreiben über `lib/store.js`. Heute liegt alles im Browser (`lib/store-idb.js`, IndexedDB, Version
+2 mit Tabelle `projects`); später kommt ein Server-Speicher mit derselben Schnittstelle. `lib/store.js` filtert Cases,
+Lernstrecken und Wissen auf das aktuelle Projekt und setzt bei neuen Einträgen `projectId`. Die Datenformate von Case und
+Lernstrecke bleiben gleich (nur `projectId` kommt dazu). Solange die Daten im Browser liegen, sieht jede Person nur ihre
+eigenen Projekte.
 
 ## Arbeitsweise
 
