@@ -48,6 +48,9 @@ Daten in einer Datenbank.
 - [ ] Nutzerverwaltung für Admins: einladen, Rolle ändern, sperren, neuen Link erzeugen
 - [ ] Server-Speicher `lib/store-server.js` und `/api/store`; einmalig „Daten aus diesem Browser übernehmen“
 - [ ] Echte Rollen in Case-Editor und Lern-Editor; Server prüft die Freigabe
+- [ ] Rolle „Kunde“ (Freigabe beim Kunden): sieht nur die eigenen Projekte, kann ansehen, kommentieren und freigeben,
+      nichts bearbeiten. Ablauf: Mitarbeiter des Kunden nimmt mit der Erweiterung auf → wir finalisieren im Studio →
+      Kunde bekommt Zugang und gibt frei. Beim Bau von Rollen und Server-Speicher (Zugriff je Projekt) mitdenken.
 - [ ] Sicherheitsprüfung gegen das Security Framework (Cookies, Fehlversuche, Rechte, Schlüssel)
 - [ ] Medien (Videos, PDFs) serverseitig ablegen (Vercel Blob in der EU) – danach
 
@@ -91,6 +94,10 @@ Plan: `docs/erweiterung.md`. Die Erweiterung füllt dieselben Felder wie die Sch
 - [ ] PR 4: Sicherheitsprüfung gegen das Security Framework, Tests, Anleitung
 - [ ] Aufnahme in einer fremden Web-App (z. B. eigene Nextcloud) Ende-zu-Ende: Aufnahme → Case → Video → Klickanleitung
 - [ ] Modell-Schnittstelle: Claude in der EU, Kolibri vorbereitet
+- [ ] Internes Video (60–90 s) zu den Vorteilen der Aufnahme: Der Kunde zeigt (ein Mitarbeiter, der die Anwendung
+      kennt, nimmt auf), wir bauen, der Kunde gibt frei. Kein Zugang zum Kundensystem, Wissen direkt vom Anwender.
+      Erst bauen, wenn es die Rolle „Kunde“ gibt, damit die Freigabe echt gezeigt wird.
+- [ ] Verteilung an Kunden ohne Entwicklermodus (Chrome Web Store, nicht gelistet, oder Freigabe über die IT des Kunden)
 
 ## Schritt 4 – Messe-Reife (Januar 2027)
 
