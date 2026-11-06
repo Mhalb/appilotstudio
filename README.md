@@ -9,7 +9,10 @@ KI-Hilfe. Arbeitstitel.
 
 - **Cases:** Arbeitsabläufe in der Zielanwendung, Schritt für Schritt. Entstehen aus einer Beschreibung (KI-Entwurf),
   durch Aufnehmen in der Anwendung oder von Hand mit Bildschirmfotos. Probelauf, Prüfung und Freigabe.
-- **Medien:** Erklärvideo mit Sprecher und Klickanleitung aus einem Case.
+- **Medien:** Erklärvideo mit Sprecher und Klickanleitung aus einem Case. Beides steht im Case unter „Video und
+  Klickanleitung“; die Übersicht **Medien** zeigt eine Karte je Case bzw. Lernstrecke mit Filtern (Cases, Lernstrecken,
+  veraltet, Video fehlt) und Suche. **Notizen für Appilot** (Hausregeln, interne Vorgaben) stehen getrennt daneben,
+  Neuigkeiten nach einem Update nur unter „Updates“.
 - **Lernstrecken:** interaktive Einheiten aus Szenario, Erklärung, Übungen, Praxis in der Anwendung und Spickzettel.
   KI-Entwurf, Tutor beim Lernen, Export als SCORM-Paket.
 - **Sprachfassungen:** Übersetzung von Cases und Lernstrecken.
@@ -91,7 +94,8 @@ Lernende sehen.
 | Adresse | Inhalt |
 | --- | --- |
 | `/` oder `/start` | Startseite: Erste Schritte (bis alles einmal erledigt ist), Überblick, „Meine Aufgaben“ |
-| `/editor#cases`, `#wissen`, `#updates` | Cases, Wissen (Videos, Klickanleitungen, Notizen), Updates |
+| `/editor#cases`, `#medien`, `#notizen`, `#updates` | Cases, Medien (Videos und Klickanleitungen), Notizen für Appilot, Updates |
+| `/editor#medien=<caseId>` | Case beim Abschnitt „Video und Klickanleitung“ öffnen |
 | `/editor#neu`, `/lern-editor#neu` | neuen Case bzw. neue Lernstrecke anlegen |
 | `/editor#case=<id>`, `#kb=<id>`, `/lern-editor#k=<id>` | einen Eintrag öffnen |
 | `…#projekt` | Projekt-Dialog öffnen (auf jeder Seite mit Navigation) |
