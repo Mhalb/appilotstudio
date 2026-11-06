@@ -58,8 +58,8 @@ Entschieden: Projekt mit Feld „Kunde“ (keine eigene Ebene Kunde), erst Proje
 
 - [x] Projekte: mehrere Projekte, Wechsel in der Navigation (nach Kunde gruppiert, Suche), neues Projekt, verwalten und
       archivieren; Cases, Lernstrecken und Wissen je Projekt; Übernahme der bisherigen Daten (Branch `feature/projekte`)
-- [ ] Medien: Video und Klickanleitung im Case zeigen; „Wissen“ wird „Medien“ (eine Karte je Case, Filter veraltet/ohne
-      Video, Suche); Notizen für Appilot getrennt; Neuigkeiten nur unter Updates
+- [x] Medien: Video und Klickanleitung im Case zeigen; „Wissen“ wird „Medien“ (eine Karte je Case, Filter veraltet/ohne
+      Video, Suche); Notizen für Appilot getrennt; Neuigkeiten nur unter Updates (Branch `feature/medien`)
 - [ ] Case in ein anderes Projekt kopieren (z. B. als Vorlage)
 - [ ] Projekte im Server-Speicher, mit Zugriff je Projekt (wer sieht welches Projekt)
 

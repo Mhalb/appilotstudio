@@ -6,7 +6,7 @@
 <title>Case-Editor · Appilot</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f33'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%232bd4a5' font-family='Arial'%3E✦%3C/text%3E%3C/svg%3E">
 <script src="/lib/auth.js?v=2"></script>
-<link rel="stylesheet" href="/lib/editor.css?v=10">
+<link rel="stylesheet" href="/lib/editor.css?v=12">
 </head>
 <body>
 <header class="top">
@@ -59,12 +59,14 @@
           </div>
           <div class="create-card">
             <b>3 · Prüfen und erzeugen</b>
-            <span id="mediaInfo">Probelauf in der Anwendung, danach Video und Klickanleitung für die Wissensdatenbank.</span>
+            <span id="mediaInfo">Probelauf in der Anwendung, danach Video und Klickanleitung.</span>
             <div class="btns"><button type="button" class="btn ghost" id="btnTest">Probelauf</button><button type="button" class="btn" id="btnMedia">Video und Anleitung erzeugen</button></div>
             <label class="opt"><input type="checkbox" id="optVoice" checked> Video mit Sprecher vertonen</label>
           </div>
         </div>
         <div class="note" id="cNote" hidden></div>
+
+        <div class="case-media" id="cMedia" hidden></div>
 
         <div class="section-head"><h3>Schritte <span id="cCount"></span></h3><div class="btns"><button type="button" class="btn small ghost" id="btnPolish" title="Titel und Erklärtexte aller Schritte neu formulieren">Texte von Appilot formulieren</button><button type="button" class="btn small ghost" id="btnAddStep" title="Schritt selbst anlegen, mit Bildschirmfoto">+ Schritt</button></div></div>
         <ol class="steps" id="cSteps"></ol>
@@ -82,14 +84,33 @@
     </section>
   </section>
 
-  <!-- Wissensdatenbank -->
+  <!-- Medien: fertige Videos und Klickanleitungen, eine Karte je Case bzw. Lernstrecke -->
+  <section id="viewMedia" class="view single media-view" hidden>
+    <div class="media-head">
+      <div class="seg" role="tablist" aria-label="Medien oder Notizen">
+        <a class="seg-btn on" href="#medien" role="tab" aria-selected="true">Videos und Anleitungen</a>
+        <a class="seg-btn" href="#notizen" role="tab" aria-selected="false">Notizen für Appilot <span class="count-pill" id="noteCount" hidden></span></a>
+      </div>
+      <span class="grow"></span>
+      <input type="search" id="mediaSearch" placeholder="Suchen" aria-label="Medien durchsuchen">
+    </div>
+    <div class="chips" id="mediaFilter" role="group" aria-label="Filter"></div>
+    <p class="hint" id="mediaSum"></p>
+    <div class="media-grid" id="mediaGrid"></div>
+  </section>
+
+  <!-- Notizen für Appilot (und einzelne Einträge über #kb=<id>) -->
   <section id="viewKb" class="view" hidden>
     <aside class="list">
-      <div class="list-head"><h2>Wissensdatenbank</h2><button type="button" class="btn small" id="newNote">+ Notiz</button></div>
+      <div class="seg seg-small" role="tablist" aria-label="Medien oder Notizen">
+        <a class="seg-btn" href="#medien" role="tab" aria-selected="false">Medien</a>
+        <a class="seg-btn on" href="#notizen" role="tab" aria-selected="true">Notizen</a>
+      </div>
+      <div class="list-head"><h2>Notizen</h2><button type="button" class="btn small" id="newNote">+ Notiz</button></div>
       <ul id="kbList"></ul>
     </aside>
     <section class="detail" id="kbDetail">
-      <div class="empty" id="kbEmpty">Hier legt Appilot Videos und Klickanleitungen ab. Appilot nutzt alle Einträge, um Fragen in der Anwendung zu beantworten.</div>
+      <div class="empty" id="kbEmpty">Notizen sind z. B. interne Vorgaben, Hausregeln oder Ansprechpartner. Appilot nutzt sie, um Fragen in der Anwendung zu beantworten.</div>
       <div id="kbView" hidden></div>
     </section>
   </section>
@@ -144,12 +165,12 @@
 <script src="/lib/store-idb.js?v=2"></script>
 <script src="/lib/store.js?v=2"></script>
 <script src="/lib/projekt.js?v=2"></script>
-<script src="/lib/nav.js?v=3"></script>
+<script src="/lib/nav.js?v=4"></script>
 <script src="/vendor/mp4-muxer.js?v=4"></script>
 <script src="/lib/media.js?v=4"></script>
 <script src="/lib/sprache.js?v=4"></script>
 <script src="/lib/update.js?v=4"></script>
 <script src="/lib/aufnahme.js?v=1"></script>
-<script src="/lib/editor.js?v=8"></script>
+<script src="/lib/editor.js?v=9"></script>
 </body>
 </html>
