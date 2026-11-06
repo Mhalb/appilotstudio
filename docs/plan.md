@@ -51,6 +51,18 @@ Daten in einer Datenbank.
 - [ ] Sicherheitsprüfung gegen das Security Framework (Cookies, Fehlversuche, Rechte, Schlüssel)
 - [ ] Medien (Videos, PDFs) serverseitig ablegen (Vercel Blob in der EU) – danach
 
+## Zwischendurch – Projekte und Medien (6. 11. 2026)
+
+Das Studio ist ein eigenständiges Produkt: Autorinnen und Autoren arbeiten für mehrere Kunden und Aufträge.
+Entschieden: Projekt mit Feld „Kunde“ (keine eigene Ebene Kunde), erst Projekte, dann Medien.
+
+- [x] Projekte: mehrere Projekte, Wechsel in der Navigation (nach Kunde gruppiert, Suche), neues Projekt, verwalten und
+      archivieren; Cases, Lernstrecken und Wissen je Projekt; Übernahme der bisherigen Daten (Branch `feature/projekte`)
+- [ ] Medien: Video und Klickanleitung im Case zeigen; „Wissen“ wird „Medien“ (eine Karte je Case, Filter veraltet/ohne
+      Video, Suche); Notizen für Appilot getrennt; Neuigkeiten nur unter Updates
+- [ ] Case in ein anderes Projekt kopieren (z. B. als Vorlage)
+- [ ] Projekte im Server-Speicher, mit Zugriff je Projekt (wer sieht welches Projekt)
+
 ## Zwischendurch – Bedienung (Rundgang 5. 11. 2026)
 
 Befund: Bei Anwendungen ohne Appilot ließ sich kein Case mit Schritten erstellen (Entwurf und Aufnahme brauchen beide
